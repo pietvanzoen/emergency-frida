@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Emergency Frida</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/public/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
@@ -12,5 +11,24 @@
     <img src="{{src}}" />
     <a href="{{permalink}}">permalink</a>&nbsp;&nbsp;
     <a href="/">more</a>
+
+    <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
+    <script>
+    (function(f, a, t, h, o, m){
+      a[h]=a[h]||function(){
+        (a[h].q=a[h].q||[]).push(arguments)
+      };
+      o=f.createElement('script'),
+      m=f.getElementsByTagName('script')[0];
+      o.async=1; o.src=t; o.id='fathom-script';
+      m.parentNode.insertBefore(o,m)
+    })(document, window, '//fathom.piet.me/tracker.js', 'fathom');
+    if (location.hostname === 'emergencyfrida.com') {
+      fathom('set', 'siteId', 'MPDUR');
+      fathom('trackPageview');
+    }
+    </script>
+    <!-- / Fathom -->
+
   </body>
 </html>
