@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 
 body {
   margin: 1em auto;
   padding: 0 1em;
   max-width: 600px;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
-  background: #D1FFF0;
+  font-family: "Montserrat", sans-serif;
+  background: #d1fff0;
 }
 img {
   max-width: 100%;
@@ -14,7 +14,7 @@ img {
 }
 
 h1 {
- text-shadow: 3px 3px white;
+  text-shadow: 3px 3px white;
 }
 
 a {

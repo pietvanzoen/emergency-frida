@@ -4,7 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/public/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
+    <link
+      rel="stylesheet"
+      href="/public/style.css"
+      type="text/css"
+      media="screen"
+      title="no title"
+      charset="utf-8"
+    />
   </head>
   <body>
     {{body}}
@@ -14,21 +21,24 @@
     </footer>
     <!-- Fathom - simple website analytics - https://github.com/usefathom/fathom -->
     <script>
-    (function(f, a, t, h, o, m){
-      a[h]=a[h]||function(){
-        (a[h].q=a[h].q||[]).push(arguments)
-      };
-      o=f.createElement('script'),
-      m=f.getElementsByTagName('script')[0];
-      o.async=1; o.src=t; o.id='fathom-script';
-      m.parentNode.insertBefore(o,m)
-    })(document, window, '//fathom.piet.me/tracker.js', 'fathom');
-    if (location.hostname === 'emergencyfrida.com') {
-      fathom('set', 'siteId', 'MPDUR');
-      fathom('trackPageview');
-    }
+      (function (f, a, t, h, o, m) {
+        a[h] =
+          a[h] ||
+          function () {
+            (a[h].q = a[h].q || []).push(arguments);
+          };
+        (o = f.createElement("script")),
+          (m = f.getElementsByTagName("script")[0]);
+        o.async = 1;
+        o.src = t;
+        o.id = "fathom-script";
+        m.parentNode.insertBefore(o, m);
+      })(document, window, "//fathom.piet.me/tracker.js", "fathom");
+      if (location.hostname === "emergencyfrida.com") {
+        fathom("set", "siteId", "MPDUR");
+        fathom("trackPageview");
+      }
     </script>
     <!-- / Fathom -->
-
   </body>
 </html>

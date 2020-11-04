@@ -12,6 +12,7 @@
     "bluebird": "^3.7.2",
     "glob": "^7.1.6",
     "nodemon": "^2.0.6",
+    "prettier": "^2.1.2",
     "sharp": "^0.26.2"
   },
   "scripts": {
@@ -22,7 +23,8 @@
     "start": "node server.js",
     "start:docker": "docker run -it -p 8080:8080 pietvanzoen/emergency-frida",
     "build": "docker build -t pietvanzoen/emergency-frida .",
-    "deploy": "docker push pietvanzoen/emergency-frida"
+    "deploy": "docker push pietvanzoen/emergency-frida",
+    "format": "prettier -w ."
   },
   "repository": {
     "type": "git",
