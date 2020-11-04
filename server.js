@@ -2,10 +2,12 @@ const { readdirSync, readFileSync } = require('fs');
 const fastify = require('fastify');
 const path = require('path');
 
+const BASE_TITLE = 'Emergency Frida';
 
 const fridas = readdirSync('./public/images');
-const view = readFileSync('./view.html', 'utf-8');
-const fourohfour = readFileSync('./404.html', 'utf-8');
+const layoutHtml = readFileSync('./layout.html', 'utf-8');
+const viewHtml = readFileSync('./view.html', 'utf-8');
+const fourohfourHtml = readFileSync('./404.html', 'utf-8');
 
 
 const server = fastify({
@@ -20,7 +22,7 @@ server.register(require('fastify-static'), {
 server.get('/', async (request, reply) => {
   const frida = sample(fridas);
   reply.type('text/html');
-  return template(frida);
+  return view(frida);
 })
 
 server.get('/-/:id', async (request, reply) => {
@@ -28,15 +30,15 @@ server.get('/-/:id', async (request, reply) => {
   reply.type('text/html');
   if (!frida) {
     reply.code(404);
-    return fourohfour;
+    return fourohfour();
   }
-  return template(frida);
+  return view(frida);
 })
 
 server.get('*', async (request, reply) => {
   reply.type('text/html');
   reply.code(404);
-  return fourohfour;
+  return fourohfour();
 });
 
 server.listen(8080, '0.0.0.0', (err, address) => {
@@ -47,22 +49,18 @@ server.listen(8080, '0.0.0.0', (err, address) => {
  console.log(`Server listening at ${address}`)
 })
 
-// server.get('/ping', async (request, reply) => {
-//  return 'pong\n'
-// })
-
-// server.listen(8080, (err, address) => {
-//  if(err) {
-//    console.error(err)
-//    process.exit(1)
-//  }
-//  console.log(`Server listening at ${address}`)
-// })
-//
-function template(frida) {
-  return view
+function view(frida) {
+  return layoutHtml
+    .replace('{{title}}', BASE_TITLE)
+    .replace('{{body}}', viewHtml)
     .replace('{{src}}', path.join('/public/images', frida))
     .replace('{{permalink}}', permalink(frida));
+}
+
+function fourohfour() {
+  return layoutHtml
+    .replace('{{title}}', `${BASE_TITLE} - 404`)
+    .replace('{{body}}', fourohfourHtml)
 }
 
 function sample(items) {
