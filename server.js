@@ -8,7 +8,9 @@ const view = readFileSync('./view.html', 'utf-8');
 const fourohfour = readFileSync('./404.html', 'utf-8');
 
 
-const server = fastify();
+const server = fastify({
+  logger: true
+});
 
 server.register(require('fastify-static'), {
   root: path.join(__dirname, 'public'),
@@ -37,7 +39,7 @@ server.get('*', async (request, reply) => {
   return fourohfour;
 });
 
-server.listen(8080, (err, address) => {
+server.listen(8080, '0.0.0.0', (err, address) => {
  if(err) {
    console.error(err)
    process.exit(1)
