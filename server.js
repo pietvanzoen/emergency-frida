@@ -1,10 +1,11 @@
 const { readdirSync, readFileSync } = require('fs');
 const fastify = require('fastify');
 const path = require('path');
+const ms = require('ms');
 
 const BASE_TITLE = 'Emergency Frida';
 
-const fridas = readdirSync('./public/images');
+const fridas = readdirSync('./images');
 const layoutHtml = readFileSync('./layout.html', 'utf-8');
 const viewHtml = readFileSync('./view.html', 'utf-8');
 const fourohfourHtml = readFileSync('./404.html', 'utf-8');
@@ -17,6 +18,14 @@ const server = fastify({
 server.register(require('fastify-static'), {
   root: path.join(__dirname, 'public'),
   prefix: '/public/',
+  maxAge: ms('1 hour')
+})
+
+server.register(require('fastify-static'), {
+  root: path.join(__dirname, 'images'),
+  prefix: '/images/',
+  maxAge: ms('1 week'),
+  decorateReply: false
 })
 
 server.get('/', async (request, reply) => {
@@ -53,7 +62,7 @@ function view(frida) {
   return layoutHtml
     .replace('{{title}}', BASE_TITLE)
     .replace('{{body}}', viewHtml)
-    .replace('{{src}}', path.join('/public/images', frida))
+    .replace('{{src}}', path.join('/images', frida))
     .replace('{{permalink}}', permalink(frida));
 }
 
