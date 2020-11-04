@@ -30,12 +30,14 @@ server.register(require("fastify-static"), {
 server.get("/", async (request, reply) => {
   const frida = sample(fridas);
   reply.type("text/html");
+  reply.header('cache-control', 'no-cache');
   return view(frida);
 });
 
 server.get("/-/:id", async (request, reply) => {
   const frida = fridas.find((f) => f.startsWith(request.params.id));
   reply.type("text/html");
+  reply.header('cache-control', 'no-cache');
   if (!frida) {
     reply.code(404);
     return fourohfour();
