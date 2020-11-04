@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+DIR='./originals';
+TEMPDIR=$(mktemp -d)
+ZIP=$(mktemp)
+
+if [ -d "$DIT" ]; then
+  echo "Warning: $DIR already exists. Clear photos directory and run again to refresh.";
+  exit;
+fi
+
+curl -X POST --output $ZIP https://content.dropboxapi.com/2/files/download_zip \
+  --header "Authorization: Bearer $DROPBOX_TOKEN" \
+  --header "Dropbox-API-Arg: {\"path\": \"/photos\"}"
+
+
+set -x
+unzip $ZIP -d $TEMPDIR
+rm -rvf $DIR
+mv -v "$TEMPDIR/photos" $DIR
+rm -rf $TEMPDIR
+rm -rf $ZIP
