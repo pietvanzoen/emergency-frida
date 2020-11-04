@@ -18,7 +18,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "photos:fetch": "./scripts/fetch-photos",
     "photos:optimize": "rm -rf images && mkdir images && node ./scripts/optimize.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start:docker": "docker run -it -p 8080:8080 pietvanzoen/emergency-frida",
+    "build": "docker build -t pietvanzoen/emergency-frida .",
+    "deploy": "docker push pietvanzoen/emergency-frida"
   },
   "repository": {
     "type": "git",
