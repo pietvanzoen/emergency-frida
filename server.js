@@ -6,7 +6,7 @@ const { fourohfour, frida } = require("./views");
 
 const { NODE_ENV } = process.env;
 
-const fridas = readdirSync("./images");
+const fridas = readdirSync('./public/images');
 
 const server = fastify({
   logger: true,
@@ -15,15 +15,7 @@ const server = fastify({
 server.register(require("fastify-static"), {
   root: path.join(__dirname, "public"),
   prefix: "/public/",
-  maxAge: ms("1 hour"),
-  cacheControl: NODE_ENV === "production",
-});
-
-server.register(require("fastify-static"), {
-  root: path.join(__dirname, "images"),
-  prefix: "/images/",
-  maxAge: ms("1 week"),
-  decorateReply: false,
+  maxAge: ms("1 year"),
   cacheControl: NODE_ENV === "production",
 });
 

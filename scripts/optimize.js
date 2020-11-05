@@ -5,8 +5,8 @@ const Promise = require("bluebird");
 const { extname, join, basename } = require("path");
 const crypto = require("crypto");
 
-const SOURCE_DIR = "./originals";
-const OUT_DIR = "./images";
+const SOURCE_DIR = './originals';
+const OUT_DIR = './public/images';
 
 const successList = [];
 const errorList = {};
