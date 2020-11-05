@@ -16,6 +16,7 @@ server.register(require("fastify-static"), {
   root: path.join(__dirname, "public"),
   prefix: "/public/",
   maxAge: ms("1 hour"),
+  cacheControl: NODE_ENV === "production",
 });
 
 server.register(require("fastify-static"), {
@@ -23,6 +24,7 @@ server.register(require("fastify-static"), {
   prefix: "/images/",
   maxAge: ms("1 week"),
   decorateReply: false,
+  cacheControl: NODE_ENV === "production",
 });
 
 server.get("/", async (request, reply) => {
