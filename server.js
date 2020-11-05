@@ -1,14 +1,12 @@
-const { readdirSync, readFileSync } = require("fs");
+const { readdirSync } = require("fs");
 const fastify = require("fastify");
-const path = require("path");
 const ms = require("ms");
+const path = require("path");
+const { fourohfour, frida } = require("./views");
 
-const BASE_TITLE = "Emergency Frida";
+const { NODE_ENV } = process.env;
 
 const fridas = readdirSync("./images");
-const layoutHtml = readFileSync("./layout.html", "utf-8");
-const viewHtml = readFileSync("./view.html", "utf-8");
-const fourohfourHtml = readFileSync("./404.html", "utf-8");
 
 const server = fastify({
   logger: true,
@@ -28,21 +26,21 @@ server.register(require("fastify-static"), {
 });
 
 server.get("/", async (request, reply) => {
-  const frida = sample(fridas);
+  const file = sample(fridas);
   reply.type("text/html");
-  reply.header('cache-control', 'no-cache');
-  return view(frida);
+  reply.header("cache-control", "no-cache");
+  return frida(file);
 });
 
 server.get("/-/:id", async (request, reply) => {
-  const frida = fridas.find((f) => f.startsWith(request.params.id));
+  const file = fridas.find((f) => f.startsWith(request.params.id));
   reply.type("text/html");
-  reply.header('cache-control', 'no-cache');
-  if (!frida) {
+  reply.header("cache-control", "no-cache");
+  if (!file) {
     reply.code(404);
     return fourohfour();
   }
-  return view(frida);
+  return frida(file);
 });
 
 server.get("*", async (request, reply) => {
@@ -59,24 +57,6 @@ server.listen(8080, "0.0.0.0", (err, address) => {
   console.log(`Server listening at ${address}`);
 });
 
-function view(frida) {
-  return layoutHtml
-    .replace("{{title}}", BASE_TITLE)
-    .replace("{{body}}", viewHtml)
-    .replace("{{src}}", path.join("/images", frida))
-    .replace("{{permalink}}", permalink(frida));
-}
-
-function fourohfour() {
-  return layoutHtml
-    .replace("{{title}}", `${BASE_TITLE} - 404`)
-    .replace("{{body}}", fourohfourHtml);
-}
-
 function sample(items) {
   return items[Math.floor(Math.random() * items.length)];
-}
-
-function permalink(file) {
-  return path.join("/-/", path.parse(file).name);
 }

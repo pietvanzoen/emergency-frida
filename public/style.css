@@ -18,7 +18,8 @@ h1 {
   text-shadow: 3px 3px white;
 }
 
-h1, a {
+h1,
+a {
   color: black;
 }
 
