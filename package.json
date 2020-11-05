@@ -10,8 +10,12 @@
   },
   "devDependencies": {
     "bluebird": "^3.7.2",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "glob": "^7.1.6",
     "nodemon": "^2.0.6",
+    "pino": "^6.7.0",
     "pino-pretty": "^4.3.0",
     "prettier": "^2.1.2",
     "sharp": "^0.26.2"
@@ -24,7 +28,8 @@
     "start:docker": "docker run -it -p 8080:8080 pietvanzoen/emergency-frida",
     "build": "docker build -t pietvanzoen/emergency-frida .",
     "deploy": "docker push pietvanzoen/emergency-frida",
-    "format": "prettier -w ."
+    "lint": "eslint .",
+    "fmt": "eslint . --fix"
   },
   "repository": {
     "type": "git",
