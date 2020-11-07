@@ -1,13 +1,22 @@
-FROM node:lts-alpine
-
-ENV NODE_ENV=production
+FROM node:lts AS build
 
 WORKDIR /app
 
-## Copy package.json and package-lock.json before copy other files for better build caching
 COPY ["./package.json", "./package-lock.json", "/app/"]
-RUN npm ci --production
+RUN npm install
+
 COPY "./" "/app/"
+
+ARG DROPBOX_TOKEN
+RUN npm run update-photos
+
+RUN npm prune --production
+
+FROM node:lts-alpine
+
+WORKDIR /app
+
+COPY --from=build /app /app
 
 CMD ["npm", "start"]
 EXPOSE 8080
