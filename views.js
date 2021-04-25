@@ -22,6 +22,7 @@ function frida(file) {
 
 function fourohfour() {
   return layoutHtml
+    .replace('{{styleSrc}}', STYLE_SRC)
     .replace('{{title}}', `${BASE_TITLE} - 404`)
     .replace('{{body}}', fourohfourHtml);
 }

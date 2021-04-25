@@ -37,7 +37,7 @@ server.get('/-/:id', async (request, reply) => {
   return frida(file);
 });
 
-server.get('*', async (request, reply) => {
+server.setNotFoundHandler(async function (_, reply) {
   reply.type('text/html');
   reply.code(404);
   return fourohfour();
